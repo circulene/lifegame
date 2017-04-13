@@ -21,24 +21,19 @@ class LifegameWidget(Widget):
                 status = cells.cell(x, y)
                 if status == Cells.ALIVE:
                     with self.canvas:
-                        unit = 10
-#                        scale = (cells.nx/self.canvas.size[0], cells.ny/self.canvas.size[1])
+                        csize = (self.size[0]/cells.nx, self.size[1]/cells.ny)
                         Color(1, 0, 0)
-                        Rectangle(pos=(x*unit, y*unit), size=(unit, unit))
-#                        Rectangle(pos=(scale[0]*x*unit, scale[1]*y*unit), size=(unit, unit))
+                        Rectangle(pos=(csize[0]*x, csize[1]*y), size=csize)
 
 class LifegameApp(App):
     def build(self):
         self.cells = Cells(nx, ny)
         self.title = "Lifegame"
         self.gen = 0
-        self.console = LifegameConsole()
         root = BoxLayout(orientation='vertical')
-        self.label = label = Label(text='0')
+        self.label = label = Label(text='0', size_hint=(None, 0.1))
         self.wid = wid = LifegameWidget()
         Clock.schedule_interval(self.update, period)
-        layout = BoxLayout(size_hint=(1, None), height=50)
-        root.add_widget(layout)
         root.add_widget(label)
         root.add_widget(wid)
         return root
@@ -46,7 +41,7 @@ class LifegameApp(App):
     def update(self, dt):
         self.cells.survive()
         self.wid.update(self.cells)
-        self.console.write(self.gen, self.cells)
+        self.label.text = "gen={0}".format(self.gen)
         self.gen += 1
 
 class LifegameConsole:
