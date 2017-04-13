@@ -22,9 +22,10 @@ class LifegameWidget(Widget):
                 if status == Cells.ALIVE:
                     with self.canvas:
                         unit = 10
-                        scale = (cells.nx/self.canvas.size[0], cells.ny/self.canvas.size[1])
+#                        scale = (cells.nx/self.canvas.size[0], cells.ny/self.canvas.size[1])
                         Color(1, 0, 0)
-                        Rectangle(pos=(scale[0]*x*unit, scale[1]*y*unit), size=unit*scale)
+                        Rectangle(pos=(x*unit, y*unit), size=(unit, unit))
+#                        Rectangle(pos=(scale[0]*x*unit, scale[1]*y*unit), size=(unit, unit))
 
 class LifegameApp(App):
     def build(self):
@@ -45,7 +46,7 @@ class LifegameApp(App):
     def update(self, dt):
         self.cells.survive()
         self.wid.update(self.cells)
-        self.console.write(gen, self.cells)
+        self.console.write(self.gen, self.cells)
         self.gen += 1
 
 class LifegameConsole:
@@ -54,8 +55,6 @@ class LifegameConsole:
                       Cells.ALIVE: "@"}
 
     def write(self, gen, cells):
-#        for i in range(self.cells.ny+1):
-#            print("", end="\r")
         print("gen={0}".format(gen))
         for y in range(cells.ny):
             for x in range(cells.nx):
