@@ -39,5 +39,5 @@ class Cells:
                     self._nextCells[x][y] = Cells.ALIVE
                 if self._cells[x][y] == Cells.ALIVE and (aliveNeighbours <= 1 or aliveNeighbours >= 4):
                     self._nextCells[x][y] = Cells.DEAD
-        self._cells = self._nextCells
+        self._cells = self._nextCells[:]
 
