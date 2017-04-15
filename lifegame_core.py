@@ -17,7 +17,10 @@ class Cells:
                 self._cells[x][y] = status
 
     def cell(self, x, y):
-        return self._cells[x % self.nx][y % self.ny]
+        if x < 0 or x >= self.nx or y < 0 or y >= self.ny:
+            return Cells.DEAD
+        return self._cells[x][y]
+#        return self._cells[x % self.nx][y % self.ny]
 
     def _countAliveNeighbours(self, x, y):
         aliveNeighbours = 0
@@ -34,10 +37,11 @@ class Cells:
         for x in range(self.nx):
             for y in range(self.ny):
                 aliveNeighbours = self._countAliveNeighbours(x, y)
-                self._nextCells[x][y] = self._cells[x][y]
-                if self._cells[x][y] == Cells.DEAD and aliveNeighbours == 3:
-                    self._nextCells[x][y] = Cells.ALIVE
                 if self._cells[x][y] == Cells.ALIVE and (aliveNeighbours <= 1 or aliveNeighbours >= 4):
                     self._nextCells[x][y] = Cells.DEAD
+                elif self._cells[x][y] == Cells.DEAD and aliveNeighbours == 3:
+                    self._nextCells[x][y] = Cells.ALIVE
+                else:
+                    self._nextCells[x][y] = self._cells[x][y]
         self._cells = self._nextCells[:]
 
