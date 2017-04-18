@@ -22,7 +22,9 @@ class LifegameWidget(Widget):
                 if status == Cells.ALIVE:
                     with self.canvas:
                         csize = (self.size[0]/cells.nx, self.size[1]/cells.ny)
-                        Color(1, 0, 0)
+                        intensity = cells.gen(x, y)/100 + 0.3 
+                        r = 1 if intensity > 1 else intensity
+                        Color(r, 0, 0)
                         Rectangle(pos=(csize[0]*x, csize[1]*y), size=csize)
 
 class LifegameApp(App):
