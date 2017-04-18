@@ -26,10 +26,13 @@ class LifegameWidget(Widget):
                         Rectangle(pos=(csize[0]*x, csize[1]*y), size=csize)
 
 class LifegameApp(App):
-    def build(self):
-        self.cells = Cells(nx, ny)
+    def __init__(self, nx, ny, density, **kwargs):
+        super(LifegameApp, self).__init__(**kwargs)
+        self.cells = Cells(nx, ny, density)
         self.title = "Lifegame"
         self.gen = 0
+
+    def build(self):
         root = BoxLayout(orientation='vertical')
         self.label = label = Label(text='0', size_hint=(None, 0.1))
         self.wid = wid = LifegameWidget()
@@ -59,10 +62,11 @@ class LifegameConsole:
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        print("usage: {0} nx ny".format(sys.argv[0]))
+        print("usage: {0} nx ny [density]".format(sys.argv[0]))
         quit()
     nx = int(sys.argv[1])
     ny = int(sys.argv[2])
+    density = int(sys.argv[3])
     period = 0.5
-    LifegameApp().run()
+    LifegameApp(nx, ny, density).run()
 

@@ -6,14 +6,15 @@ class Cells:
     DEAD = 1
     ALIVE = 2
 
-    def __init__(self, nx, ny):
+    def __init__(self, nx, ny, density = 5):
         self.nx = nx
         self.ny = ny
         self._cells = [[Cells.UNDEFINED for y in range(ny)] for x in range(nx)]
         self._nextCells = [[Cells.UNDEFINED for y in range(ny)] for x in range(nx)]
         for x in range(nx):
             for y in range(ny):
-                status = random.choice((Cells.DEAD, Cells.ALIVE))
+#                status = random.choice((Cells.DEAD, Cells.ALIVE))
+                status = Cells.ALIVE if random.randint(0, 100) < density else Cells.DEAD
                 self._cells[x][y] = status
 
     def cell(self, x, y):
