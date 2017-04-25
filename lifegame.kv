@@ -1,0 +1,58 @@
+<LifegameRoot>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+
+        LifegameWidget:
+            id: widget
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: 50
+            spacing: 10
+
+            BoxLayout:
+                orientation: 'horizontal'
+                height: 50
+
+                Label:
+                    text: 'x:'
+
+                IntegerInput:
+                    id: sizeX
+                    text: self.text
+                    multiline: False
+
+                Label:
+                    text: 'y:'
+
+                IntegerInput:
+                    id: sizeY
+                    text: self.text
+                    multiline: False
+
+                Label:
+                    text: 'density:'
+
+                IntegerInput:
+                    id: density
+                    text: self.text
+                    multiline: False
+
+            Button:
+                size_hint: 0.3, None
+                height: 50
+                id: trigger
+                text: root.triggerLabel
+                on_press: root.onPressTrigger()
+
+            Button:
+                size_hint: 0.3, None
+                height: 50
+                id: reset
+                text: 'reset'
+                on_press: root.onPressReset()
+
+<LifegameWidget>:
+
